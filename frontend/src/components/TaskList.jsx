@@ -1,6 +1,4 @@
-
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const TaskList = ({ refresh }) => {
   const [tasks, setTasks] = useState([]);
@@ -32,29 +30,29 @@ const TaskList = ({ refresh }) => {
   };
 
   const getStatusBadge = (status) => {
-    const base = "text-xs font-semibold px-3 py-1 rounded-full ";
-    if (status === "To Do") return base + "bg-yellow-100 text-yellow-800";
-    if (status === "In Progress") return base + "bg-blue-100 text-blue-800";
-    if (status === "Done") return base + "bg-green-100 text-green-800";
-    return base + "bg-gray-100 text-gray-800";
+    const base = "text-xs font-bold px-3 py-1 rounded-full";
+    if (status === "To Do") return `${base} bg-yellow-100 text-yellow-800`;
+    if (status === "In Progress") return `${base} bg-blue-100 text-blue-800`;
+    if (status === "Done") return `${base} bg-green-100 text-green-800`;
+    return `${base} bg-gray-200 text-gray-800`;
   };
 
   return (
-    <div className="mt-8 max-w-4xl mx-auto px-4">
+    <div className="mt-10 max-w-5xl mx-auto px-6">
       {/* Filters */}
-      <div className="flex flex-col md:flex-row gap-4 mb-6">
+      <div className="flex flex-col md:flex-row gap-4 mb-8">
         <input
-          placeholder="Filter by assignee"
-          className="w-full md:w-1/2 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="🔍 Filter by assignee"
+          className="w-full md:w-1/2 px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white text-gray-800 shadow-sm"
           onChange={(e) =>
             setFilters({ ...filters, assignedTo: e.target.value })
           }
         />
         <select
-          className="w-full md:w-1/2 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full md:w-1/2 px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white text-gray-800 shadow-sm"
           onChange={(e) => setFilters({ ...filters, status: e.target.value })}
         >
-          <option value="">All Status</option>
+          <option value="">📋 All Status</option>
           <option>To Do</option>
           <option>In Progress</option>
           <option>Done</option>
@@ -62,45 +60,53 @@ const TaskList = ({ refresh }) => {
       </div>
 
       {/* Task Cards */}
-      <ul className="space-y-4">
+      <ul className="space-y-6">
         {tasks.map((task) => (
           <li
             key={task._id}
-            className="bg-white border border-gray-200 p-6 rounded-xl shadow-sm transition hover:shadow-md"
+            className="bg-gradient-to-tr from-white to-indigo-50 border border-indigo-100 p-6 rounded-2xl shadow-md transition hover:shadow-lg"
           >
-            <div className="flex justify-between items-center mb-2">
-              <h3 className="text-lg font-semibold text-gray-800">
+            {/* Title & Status */}
+            <div className="flex justify-between items-center mb-3">
+              <h3 className="text-xl font-semibold text-indigo-800">
                 {task.title}
               </h3>
               <span className={getStatusBadge(task.status)}>
                 {task.status}
               </span>
             </div>
-            <p className="text-gray-700 mb-2">{task.description}</p>
+
+            {/* Description */}
+            <p className="text-gray-700 mb-3">{task.description}</p>
+
+            {/* Assignee */}
             <p className="text-sm text-gray-500 mb-4">
               Assigned to:{" "}
-              <span className="font-medium text-gray-800">
+              <span className="font-semibold text-indigo-700">
                 {task.assignedTo}
               </span>
             </p>
 
+            {/* Controls */}
             <div className="flex flex-col sm:flex-row sm:items-center gap-3">
               <select
                 value={task.status}
                 onChange={(e) => updateStatus(task._id, e.target.value)}
-                className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="px-4 py-2 rounded-xl border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-800"
               >
                 <option>To Do</option>
                 <option>In Progress</option>
                 <option>Done</option>
               </select>
 
-              <button
-                onClick={() => deleteTask(task._id)}
-                className="text-red-600 hover:text-red-700 font-medium transition"
-              >
-                Delete
-              </button>
+           <button
+  onClick={() => deleteTask(task._id)}
+  className="flex items-center gap-2 bg-red-100 text-red-700 hover:bg-red-200 active:bg-red-300 px-4 py-2 rounded-lg font-semibold text-sm transition duration-200 shadow-sm"
+>
+  <span>🗑️</span>
+  Delete
+</button>
+
             </div>
           </li>
         ))}

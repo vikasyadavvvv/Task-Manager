@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from "react";
+import React, { useState } from "react";
 
 const TaskForm = ({ refreshTasks }) => {
   const [task, setTask] = useState({
@@ -26,65 +25,65 @@ const TaskForm = ({ refreshTasks }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-white p-6 rounded-2xl shadow-md border border-gray-200 space-y-4 w-full max-w-2xl mx-auto"
+      className="bg-gradient-to-br from-blue-100 via-purple-100 to-indigo-100 p-8 rounded-3xl shadow-xl border border-indigo-200 w-full max-w-3xl mx-auto space-y-6"
     >
-      <h2 className="text-xl font-semibold text-gray-800 mb-2">
-        Create New Task
+      <h2 className="text-3xl font-extrabold text-indigo-700 text-center">
+        ✨ Create New Task
       </h2>
 
-      <div className="flex flex-col gap-1">
-        <label htmlFor="title" className="text-sm font-medium text-gray-600">
-          Title
-        </label>
-        <input
-          id="title"
-          name="title"
-          placeholder="Enter task title"
-          value={task.title}
-          onChange={handleChange}
-          className="px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-          required
-        />
+      <div className="grid md:grid-cols-2 gap-6">
+        {/* Title */}
+        <div className="flex flex-col gap-2">
+          <label htmlFor="title" className="text-sm font-medium text-indigo-600">
+            Task Title
+          </label>
+          <input
+            id="title"
+            name="title"
+            placeholder="e.g. Fix navbar responsiveness"
+            value={task.title}
+            onChange={handleChange}
+            className="px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white text-gray-800"
+            required
+          />
+        </div>
+
+        {/* Assigned To */}
+        <div className="flex flex-col gap-2">
+          <label htmlFor="assignedTo" className="text-sm font-medium text-indigo-600">
+            Assigned To
+          </label>
+          <input
+            id="assignedTo"
+            name="assignedTo"
+            placeholder="e.g. John Doe"
+            value={task.assignedTo}
+            onChange={handleChange}
+            className="px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white text-gray-800"
+            required
+          />
+        </div>
       </div>
 
-      <div className="flex flex-col gap-1">
-        <label
-          htmlFor="description"
-          className="text-sm font-medium text-gray-600"
-        >
+      {/* Description */}
+      <div className="flex flex-col gap-2">
+        <label htmlFor="description" className="text-sm font-medium text-indigo-600">
           Description
         </label>
         <textarea
           id="description"
           name="description"
-          placeholder="Enter task description"
+          placeholder="Briefly describe the task..."
           value={task.description}
           onChange={handleChange}
-          className="px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none resize-none h-24"
+          className="px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white text-gray-800 resize-none h-28"
           required
         />
       </div>
 
-      <div className="flex flex-col gap-1">
-        <label
-          htmlFor="assignedTo"
-          className="text-sm font-medium text-gray-600"
-        >
-          Assigned To
-        </label>
-        <input
-          id="assignedTo"
-          name="assignedTo"
-          placeholder="Enter team member's name"
-          value={task.assignedTo}
-          onChange={handleChange}
-          className="px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-          required
-        />
-      </div>
-
-      <div className="flex flex-col gap-1">
-        <label htmlFor="status" className="text-sm font-medium text-gray-600">
+      {/* Status */}
+      <div className="flex flex-col gap-2">
+        <label htmlFor="status" className="text-sm font-medium text-indigo-600">
           Status
         </label>
         <select
@@ -92,7 +91,7 @@ const TaskForm = ({ refreshTasks }) => {
           name="status"
           value={task.status}
           onChange={handleChange}
-          className="px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          className="px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white text-gray-800"
         >
           <option>To Do</option>
           <option>In Progress</option>
@@ -100,15 +99,15 @@ const TaskForm = ({ refreshTasks }) => {
         </select>
       </div>
 
+      {/* Submit Button */}
       <button
         type="submit"
-        className="w-full bg-blue-600 hover:bg-blue-700 transition text-white font-medium py-2 rounded-lg"
+        className="w-full bg-indigo-600 hover:bg-indigo-700 transition text-white font-semibold py-3 rounded-xl shadow-md text-lg"
       >
-        Create Task
+         Create Task
       </button>
     </form>
   );
 };
 
 export default TaskForm;
-
